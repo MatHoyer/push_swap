@@ -30,7 +30,7 @@ void	check_doublon(t_list *pile)
 		a_check = a_check->next;
 	}
 }
-#include <stdio.h>
+
 void	check_digit(int ac, char **av)
 {
 	int	i;
@@ -47,11 +47,10 @@ void	check_digit(int ac, char **av)
 			if (!ft_isdigit(av[num][i]))
 				exit(ft_printf("Erreur\n"));
 			i++;
-			printf("(%ld)", ft_atoi(av[num]));
-			if (ft_atoi(av[num]) > 2147483647 ||
-				ft_atoi(av[num]) < -2147483648)
-				exit(ft_printf("Erreur\n"));
 		}
+		if (ft_atoi(av[num]) > 2147483647
+			|| ft_atoi(av[num]) < -2147483648)
+			exit(ft_printf("Erreur\n"));
 		num++;
 	}
 }

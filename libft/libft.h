@@ -23,6 +23,7 @@
 typedef struct s_list
 {
 	int				content;
+	int				pivot;
 	struct s_list	*next;
 	struct s_list	*prec;
 }	t_list;

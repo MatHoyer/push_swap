@@ -12,44 +12,44 @@
 
 #include "push_swap.h"
 
-t_list	*reverse_rotate(t_list *top)
+void	reverse_rotate(t_list **top)
 {
 	t_list	*tmp;
 	t_list	*parc;
 
-	if (ft_lstsize(top) <= 1)
-		return (top);
-	tmp = ft_lstlast(top);
-	parc = top;
+	if (ft_lstsize(*top) <= 1)
+		return ;
+	tmp = ft_lstlast(*top);
+	parc = *top;
 	while (parc->next->content != tmp->content)
 		parc = parc->next;
 	parc->next = NULL;
-	tmp->next = top;
-	return (tmp);
+	tmp->next = *top;
+	*top = tmp;
 }
 
-t_list	*rotate(t_list *top)
+void	rotate(t_list **top)
 {
 	t_list	*tmp;
 	t_list	*mem_second;
 
-	if (ft_lstsize(top) <= 1)
-		return (top);
-	tmp = ft_lstlast(top);
-	mem_second = top->next;
-	top->next = NULL;
-	tmp->next = top;
-	return (mem_second);
+	if (ft_lstsize(*top) <= 1)
+		return ;
+	tmp = ft_lstlast(*top);
+	mem_second = (*top)->next;
+	(*top)->next = NULL;
+	tmp->next = *top;
+	*top = mem_second;
 }
 
 void	rotate_both(t_list **top_a, t_list **top_b)
 {
-	*top_a = rotate(*top_a);
-	*top_b = rotate(*top_b);
+	rotate(top_a);
+	rotate(top_b);
 }
 
 void	reverse_rotate_both(t_list **top_a, t_list **top_b)
 {
-	*top_a = reverse_rotate(*top_a);
-	*top_b = reverse_rotate(*top_b);
+	reverse_rotate(top_a);
+	reverse_rotate(top_b);
 }

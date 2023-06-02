@@ -19,14 +19,16 @@ t_list	*check_error(int ac, char **av);
 
 t_list	*init(int ac, char **av);
 
-t_list	*swap(t_list *top);
+void	swap(t_list **top);
 void	swap_both(t_list **top_a, t_list **top_b);
 
 void	push(t_list **move, t_list **to);
 
-t_list	*rotate(t_list *top);
-t_list	*reverse_rotate(t_list *top);
+void	rotate(t_list **top);
+void	reverse_rotate(t_list **top);
 void	rotate_both(t_list **top_a, t_list **top_b);
 void	reverse_rotate_both(t_list **top_a, t_list **top_b);
+
+void	tri(t_list **a, t_list **b);
 
 #endif

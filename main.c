@@ -47,7 +47,8 @@ int	main(int ac, char **av)
 	if (!a)
 		return (0);
 	affiche(a, b);
-	rotate_both(&a, &b);
+	tri(&a, &b);
+	ft_printf("\n");
 	affiche(a, b);
 	return (0);
 }
