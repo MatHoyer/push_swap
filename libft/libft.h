@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhoyer <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 11:45:35 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/05/02 11:45:38 by mhoyer           ###   ########.fr       */
+/*   Updated: 2023/06/06 11:39:59 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 typedef struct s_list
 {
 	int				content;
-	int				pivot;
+	int				below;
+	int				above;
 	struct s_list	*next;
-	struct s_list	*prec;
 }	t_list;
 
 // Affichage

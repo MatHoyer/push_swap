@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhoyer <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 09:18:15 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/05/24 09:18:19 by mhoyer           ###   ########.fr       */
+/*   Updated: 2023/06/06 12:12:38 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,42 +23,53 @@ int	check_tri(t_list *a)
 	return (0);
 }
 
-int	part(t_list **a, t_list **b, int pivot)
+void	calc_above_below(t_list **lst)
 {
-	if ((*a)->content < pivot)
+	t_list	*parc;
+	t_list	*cmp;
+
+	parc = *lst;
+	while (parc)
 	{
-		rotate(a);
-		ft_printf("ra\n");
-	}
-	else if ((*a)->content > pivot)
-	{
-		push(a, b);
-		ft_printf("pa\n");
-	}
-	else
-	{
-		rotate(a);
-		ft_printf("ra\n");
-		while (*b)
+		cmp = *lst;
+		while (cmp)
 		{
-			push(b, a);
-			ft_printf("pb\n");
-			rotate(a);
-			ft_printf("ra\n");
+			if (cmp ->content > parc->content)
+				parc->above++;
+			else if (cmp ->content < parc->content)
+				parc->below++;
+			cmp = cmp->next;
 		}
-		return (0);
+		parc = parc->next;
 	}
-	return (1);
+}
+
+t_list	*find_mediane(t_list *lst)
+{
+	t_list	*mem;
+	int		min;
+	int		tmp;
+
+	min = ft_lstsize(lst);
+	while (lst)
+	{
+		tmp = lst->above - lst->below;
+		if (tmp < 0)
+			tmp = -tmp;
+		if (tmp < min)
+		{
+			min = tmp;
+			mem = lst;
+		}
+		lst = lst->next;
+	}
+	return (mem);
 }
 
 void	tri(t_list **a, t_list **b)
 {
-	int piv = ft_lstlast(*a)->content;
-	//while (check_tri(*a))
-	//{	
-		while (part(a, b, piv))
-		{
-		}
-	//}
+	calc_above_below(a);
+	calc_above_below(b);
+	ft_printf("(%d)", find_mediane(*a)->content);
 }
 
