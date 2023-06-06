@@ -6,7 +6,7 @@
 /*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 09:18:15 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/06/06 12:12:38 by mhoyer           ###   ########.fr       */
+/*   Updated: 2023/06/06 15:31:52 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	calc_above_below(t_list **lst)
 	parc = *lst;
 	while (parc)
 	{
+		parc->below = 0;
+		parc->above = 0;
 		cmp = *lst;
 		while (cmp)
 		{
@@ -44,32 +46,124 @@ void	calc_above_below(t_list **lst)
 	}
 }
 
+// t_list	*find_mediane(t_list *lst)
+// {
+// 	t_list	*mem;
+// 	int		min;
+// 	int		tmp;
+
+// 	min = ft_lstsize(lst);
+// 	while (lst)
+// 	{
+// 		tmp = lst->above - lst->below;
+// 		if (tmp < 0)
+// 			tmp = -tmp;
+// 		if (tmp < min)
+// 		{
+// 			min = tmp;
+// 			mem = lst;
+// 		}
+// 		lst = lst->next;
+// 	}
+// 	return (mem);
+// }
+
 t_list	*find_mediane(t_list *lst)
 {
 	t_list	*mem;
-	int		min;
-	int		tmp;
-
-	min = ft_lstsize(lst);
+	t_list	*start;
+	int		seektaille;
+	
+	start = lst;
+	while (start)
+	{
+		if (start->below == 0)
+			mem = start;
+		start = start->next;
+	}
+	seektaille = ft_lstsize(lst) / 10;
 	while (lst)
 	{
-		tmp = lst->above - lst->below;
-		if (tmp < 0)
-			tmp = -tmp;
-		if (tmp < min)
-		{
-			min = tmp;
+		if (lst->below > mem->below && lst->below < seektaille)
 			mem = lst;
-		}
 		lst = lst->next;
 	}
 	return (mem);
 }
 
+void	first_step(t_list **a, t_list **b, t_list *mediane)
+{
+	int	test;
+	
+	test = mediane->below;
+	while (test >= 0)
+	{
+		if ((*a)->content <= mediane->content)
+		{
+			push(a, b);
+			test--;
+			ft_printf("pb\n");
+		}
+		else
+		{
+			rotate(a);
+			ft_printf("ra\n");
+		}
+	}
+}
+
+void	second_step(t_list **a, t_list **b)
+{
+	t_list	*parc;
+	t_list	*mem;
+	int		value;
+	int		memr;
+
+	parc = *b;
+	value = 1;
+	memr = 0;
+	mem = *b;
+	while (parc)
+	{
+		if (mem->below < parc->below)
+			mem = parc;
+		parc = parc->next;
+	}
+	while (value)
+	{
+		if ((*b) == mem)
+		{
+			push(b, a);
+			value--;
+			ft_printf("pa\n");
+		}
+		else
+		{
+			rotate(b);
+			memr++;
+			ft_printf("rb\n");
+		}
+	}
+	while (memr)
+	{
+		reverse_rotate(b);
+		memr--;
+		ft_printf("rrb\n");
+	}
+	
+}
+
 void	tri(t_list **a, t_list **b)
 {
-	calc_above_below(a);
-	calc_above_below(b);
-	ft_printf("(%d)", find_mediane(*a)->content);
+	while ((*a))
+	{
+		calc_above_below(a);
+		first_step(a, b, find_mediane(*a));
+	}
+	while (*b)
+	{
+		calc_above_below(b);
+		second_step(a, b);
+	}
 }
 

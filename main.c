@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhoyer <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 09:07:13 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/05/24 09:07:14 by mhoyer           ###   ########.fr       */
+/*   Updated: 2023/06/06 13:44:03 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,6 @@ int	main(int ac, char **av)
 	a = check_error(ac, av);
 	if (!a)
 		return (0);
-	affiche(a, b);
 	tri(&a, &b);
-	ft_printf("\n");
-	affiche(a, b);
 	return (0);
 }
