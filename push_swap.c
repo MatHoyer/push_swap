@@ -6,7 +6,7 @@
 /*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 09:18:15 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/06/06 15:31:52 by mhoyer           ###   ########.fr       */
+/*   Updated: 2023/06/06 16:38:59 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_list	*find_mediane(t_list *lst)
 	seektaille = ft_lstsize(lst) / 10;
 	while (lst)
 	{
-		if (lst->below > mem->below && lst->below < seektaille)
+		if (lst->below > mem->below && lst->below <= seektaille)
 			mem = lst;
 		lst = lst->next;
 	}
@@ -93,21 +93,23 @@ t_list	*find_mediane(t_list *lst)
 
 void	first_step(t_list **a, t_list **b, t_list *mediane)
 {
-	int	test;
-	
-	test = mediane->below;
-	while (test >= 0)
+	int	below;
+	int	content;
+
+	below = mediane->below;
+	content = mediane->content;
+	while (below >= 0)
 	{
-		if ((*a)->content <= mediane->content)
+		if ((*a)->content <= content)
 		{
-			push(a, b);
-			test--;
 			ft_printf("pb\n");
+			push(a, b);
+			below--;
 		}
 		else
 		{
-			rotate(a);
 			ft_printf("ra\n");
+			rotate(a);
 		}
 	}
 }
@@ -135,6 +137,14 @@ void	second_step(t_list **a, t_list **b)
 		{
 			push(b, a);
 			value--;
+			ft_printf("pa\n");
+		}
+		else if ((*b)->next == mem)
+		{
+			swap(b);
+			push(b, a);
+			value--;
+			ft_printf("sb\n");
 			ft_printf("pa\n");
 		}
 		else
