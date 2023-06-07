@@ -6,7 +6,7 @@
 /*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 09:18:15 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/06/06 16:38:59 by mhoyer           ###   ########.fr       */
+/*   Updated: 2023/06/07 10:31:21 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,32 @@ t_list	*find_mediane(t_list *lst)
 	return (mem);
 }
 
+t_list	*find_next(t_list *lst, int seektaille)
+{
+	while (lst)
+	{
+		if (lst->below <= seektaille)
+			return (lst);
+		lst = lst->next;
+	}
+	return (0);
+}
+
+int	check_way(t_list *lst, t_list *elem)
+{
+	int	count;
+
+	count = 0;
+	while (lst != elem)
+	{
+		lst = lst->next;
+		count++;
+	}
+	if (count > ft_lstsize(lst) / 2)
+		return (1);
+	return (0);
+}
+
 void	first_step(t_list **a, t_list **b, t_list *mediane)
 {
 	int	below;
@@ -106,6 +132,11 @@ void	first_step(t_list **a, t_list **b, t_list *mediane)
 			push(a, b);
 			below--;
 		}
+		// else if (check_way(*a, find_next(*a, below)))
+		// {
+		// 	ft_printf("rra\n");
+		// 	reverse_rotate(a);
+		// }
 		else
 		{
 			ft_printf("ra\n");
