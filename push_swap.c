@@ -6,7 +6,7 @@
 /*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 09:18:15 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/06/07 10:31:21 by mhoyer           ###   ########.fr       */
+/*   Updated: 2023/06/07 12:36:16 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	calc_above_below(t_list **lst)
 // 	return (mem);
 // }
 
-t_list	*find_mediane(t_list *lst)
+t_list	*find_mediane(t_list *lst, int taille_pac)
 {
 	t_list	*mem;
 	t_list	*start;
@@ -81,7 +81,7 @@ t_list	*find_mediane(t_list *lst)
 			mem = start;
 		start = start->next;
 	}
-	seektaille = ft_lstsize(lst) / 10;
+	seektaille = /*ft_lstsize(lst) /*/ taille_pac;
 	while (lst)
 	{
 		if (lst->below > mem->below && lst->below <= seektaille)
@@ -102,6 +102,17 @@ t_list	*find_next(t_list *lst, int seektaille)
 	return (0);
 }
 
+t_list	*find_next_last(t_list *lst, int seektaille)
+{
+	while (lst)
+	{
+		if (lst->below == seektaille)
+			return (lst);
+		lst = lst->next;
+	}
+	return (0);
+}
+
 int	check_way(t_list *lst, t_list *elem)
 {
 	int	count;
@@ -112,12 +123,12 @@ int	check_way(t_list *lst, t_list *elem)
 		lst = lst->next;
 		count++;
 	}
-	if (count > ft_lstsize(lst) / 2)
+	if (count >= ft_lstsize(lst) / 2)
 		return (1);
 	return (0);
 }
 
-void	first_step(t_list **a, t_list **b, t_list *mediane)
+void	first_step(t_list **a, t_list **b, t_list *mediane, int val)
 {
 	int	below;
 	int	content;
@@ -132,15 +143,43 @@ void	first_step(t_list **a, t_list **b, t_list *mediane)
 			push(a, b);
 			below--;
 		}
-		// else if (check_way(*a, find_next(*a, below)))
-		// {
-		// 	ft_printf("rra\n");
-		// 	reverse_rotate(a);
-		// }
+		else if (check_way(*a, find_next(*a, below)) && val)
+		{
+			ft_printf("rra\n");
+			reverse_rotate(a);
+		}
 		else
 		{
 			ft_printf("ra\n");
 			rotate(a);
+		}
+	}
+}
+
+void	test_step(t_list **a, t_list **b, t_list *mediane)
+{
+	int	below;
+	int	content;
+
+	below = mediane->below;
+	content = mediane->content;
+	while (below >= 0)
+	{
+		if ((*b)->content <= content)
+		{
+			ft_printf("pa\n");
+			push(b, a);
+			below--;
+		}
+		else if (check_way(*b, find_next(*b, below)))
+		{
+			ft_printf("rrb\n");
+			reverse_rotate(b);
+		}
+		else
+		{
+			ft_printf("rb\n");
+			rotate(b);
 		}
 	}
 }
@@ -150,11 +189,9 @@ void	second_step(t_list **a, t_list **b)
 	t_list	*parc;
 	t_list	*mem;
 	int		value;
-	int		memr;
 
 	parc = *b;
 	value = 1;
-	memr = 0;
 	mem = *b;
 	while (parc)
 	{
@@ -178,29 +215,39 @@ void	second_step(t_list **a, t_list **b)
 			ft_printf("sb\n");
 			ft_printf("pa\n");
 		}
+		else if (check_way(*b, find_next_last(*b, mem->below)))
+		{
+			ft_printf("rrb\n");
+			reverse_rotate(b);
+		}
 		else
 		{
-			rotate(b);
-			memr++;
 			ft_printf("rb\n");
+			rotate(b);
 		}
 	}
-	while (memr)
-	{
-		reverse_rotate(b);
-		memr--;
-		ft_printf("rrb\n");
-	}
-	
 }
 
 void	tri(t_list **a, t_list **b)
 {
+	int taille_pack;
+
+	taille_pack = ft_lstsize(*a) / 10;
 	while ((*a))
 	{
 		calc_above_below(a);
-		first_step(a, b, find_mediane(*a));
+		first_step(a, b, find_mediane(*a, taille_pack), 0);
 	}
+	// while (*b)
+	// {
+	// 	calc_above_below(b);
+	// 	test_step(a, b, find_mediane(*b, 15));
+	// }
+	// while (*a)
+	// {
+	// 	calc_above_below(a);
+	// 	first_step(a, b, find_mediane(*a, 5), 1);
+	// }
 	while (*b)
 	{
 		calc_above_below(b);
