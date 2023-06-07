@@ -7,7 +7,8 @@ SRC = push_swap.c \
 	swaps.c \
 	push.c \
 	rotates.c \
-	error.c
+	error.c \
+	fonctions.c
 
 OBJS = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 09:07:13 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/06/07 13:04:26 by mhoyer           ###   ########.fr       */
+/*   Updated: 2023/06/07 15:32:06 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,14 @@ int	main(int ac, char **av)
 
 	a = NULL;
 	b = NULL;
-	if (ac <= 2)
+	if (ac < 2)
 		return (1);
 	a = check_error(ac, av);
 	if (!a)
 		return (0);
+	affiche(a, b);
 	tri(&a, &b);
+	affiche(a, b);
 	free_lst(a);
 	return (0);
 }
