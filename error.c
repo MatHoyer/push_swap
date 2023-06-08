@@ -6,13 +6,13 @@
 /*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 13:10:31 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/06/07 15:40:40 by mhoyer           ###   ########.fr       */
+/*   Updated: 2023/06/08 13:12:15 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	check_doublon(t_list *pile)
+int	check_doublon(t_list *pile)
 {
 	t_list	*a_check;
 	t_list	*parc;
@@ -24,11 +24,12 @@ void	check_doublon(t_list *pile)
 		while (parc)
 		{
 			if (parc->content == a_check->content)
-				exit(ft_printf("Erreur\n"));
+				return (1);
 			parc = parc->next;
 		}
 		a_check = a_check->next;
 	}
+	return (0);
 }
 
 void	check_digit(int ac, char **av)
@@ -105,7 +106,13 @@ t_list	*check_error(int ac, char **av)
 		pile = init(ft_strlen_mat(av), av, 0);
 		check = 1;
 	}
-	check_doublon(pile);
+	if (check_doublon(pile))
+	{
+		free_lst(pile);
+		if (check)
+			free_av(av);
+		exit (ft_printf("Error\n"));
+	}
 	if (check)
 		free_av(av);
 	return (pile);

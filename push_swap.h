@@ -6,7 +6,7 @@
 /*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 09:08:16 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/06/07 15:38:59 by mhoyer           ###   ########.fr       */
+/*   Updated: 2023/06/08 13:11:16 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@ t_list	*find_next_last(t_list *lst, int seektaille);
 int		check_way(t_list *lst, t_list *elem);
 
 void	tri(t_list **a, t_list **b);
+
+void	free_lst(t_list *lst);
 
 #endif
