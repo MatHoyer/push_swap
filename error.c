@@ -6,11 +6,23 @@
 /*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 13:10:31 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/06/08 13:12:15 by mhoyer           ###   ########.fr       */
+/*   Updated: 2023/06/09 10:13:27 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	free_av(char **av)
+{
+	int	i;
+
+	i = -1;
+	while (av[++i])
+	{
+		free(av[i]);
+	}
+	free(av);
+}
 
 int	check_doublon(t_list *pile)
 {
@@ -60,33 +72,29 @@ char	**check_av(char *av)
 {
 	char	**new_av;
 	int		i;
-	int		check;
+	int		j;
 
 	i = -1;
-	check = 0;
-	while (av[++i])
-	{
-		if (av[i] == ' ')
-			check = 1;
-		else if (!ft_isdigit(av[i]) && av[i] != '-')
-			exit(ft_printf("Error\n"));
-	}
-	if (!check)
-		exit(ft_printf("Error\n"));
 	new_av = ft_split(av, ' ');
-	return (new_av);
-}
-
-void	free_av(char **av)
-{
-	int	i;
-
-	i = -1;
-	while (av[++i])
+	if (!new_av)
+		exit(ft_printf("Error\n"));
+	if (ft_strlen_mat(new_av) == 1)
 	{
-		free(av[i]);
+		free_av(new_av);
+		exit (0);
 	}
-	free(av);
+	while (new_av[++i])
+	{
+		j = -1;
+		while (new_av[i][++j])
+			if (!ft_isdigit(new_av[i][j]) || ft_atoi(new_av[i]) > INT_MAX
+			|| ft_atoi(new_av[i]) < INT_MIN)
+			{
+				free_av(new_av);
+				exit(ft_printf("Error\n"));
+			}
+	}
+	return (new_av);
 }
 
 t_list	*check_error(int ac, char **av)
@@ -106,14 +114,12 @@ t_list	*check_error(int ac, char **av)
 		pile = init(ft_strlen_mat(av), av, 0);
 		check = 1;
 	}
+	if (check)
+		free_av(av);
 	if (check_doublon(pile))
 	{
 		free_lst(pile);
-		if (check)
-			free_av(av);
 		exit (ft_printf("Error\n"));
 	}
-	if (check)
-		free_av(av);
 	return (pile);
 }
