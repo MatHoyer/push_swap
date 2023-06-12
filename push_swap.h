@@ -6,7 +6,7 @@
 /*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 09:08:16 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/06/08 13:11:16 by mhoyer           ###   ########.fr       */
+/*   Updated: 2023/06/10 21:19:28 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	reverse_rotate(t_list **top);
 void	rotate_both(t_list **top_a, t_list **top_b);
 void	reverse_rotate_both(t_list **top_a, t_list **top_b);
 
+int		check_tri(t_list *a);
 void	calc_above_below(t_list **lst);
 t_list	*find_mediane(t_list *lst, int taille_pac);
 t_list	*find_next(t_list *lst, int seektaille);

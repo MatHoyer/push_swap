@@ -6,7 +6,7 @@
 /*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 09:07:13 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/06/08 10:47:25 by mhoyer           ###   ########.fr       */
+/*   Updated: 2023/06/12 13:31:57 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,17 @@ void	affiche(t_list *a, t_list *b)
 	ft_printf("― ―\n");
 }
 
+int	check_tri(t_list *a)
+{
+	while (a->next)
+	{
+		if (a->content > a->next->content)
+			return (1);
+		a = a->next;
+	}
+	return (0);
+}
+
 void	free_lst(t_list *lst)
 {
 	t_list	*tmp;
@@ -57,9 +68,10 @@ int	main(int ac, char **av)
 	a = check_error(ac, av);
 	if (!a)
 		return (0);
-	//affiche(a, b);
-	tri(&a, &b);
-	//affiche(a, b);
+	affiche(a, b);
+	if (check_tri(a))
+		tri(&a, &b);
+	affiche(a, b);
 	free_lst(a);
 	return (0);
 }
