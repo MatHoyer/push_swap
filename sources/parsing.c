@@ -1,28 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/24 13:10:31 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/06/09 10:13:27 by mhoyer           ###   ########.fr       */
+/*   Created: 2023/06/13 09:05:52 by mhoyer            #+#    #+#             */
+/*   Updated: 2023/06/13 09:46:48 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	free_av(char **av)
-{
-	int	i;
-
-	i = -1;
-	while (av[++i])
-	{
-		free(av[i]);
-	}
-	free(av);
-}
 
 int	check_doublon(t_list *pile)
 {
@@ -58,12 +46,12 @@ void	check_digit(int ac, char **av)
 			if (i == 0 && av[num][i] == '-')
 				i++;
 			if (!ft_isdigit(av[num][i]))
-				exit(ft_printf("Erreur\n"));
+				exit(printf_error("Error"));
 			i++;
 		}
 		if (ft_atoi(av[num]) > 2147483647
 			|| ft_atoi(av[num]) < -2147483648)
-			exit(ft_printf("Erreur\n"));
+			exit(printf_error("Error"));
 		num++;
 	}
 }
@@ -77,7 +65,7 @@ char	**check_av(char *av)
 	i = -1;
 	new_av = ft_split(av, ' ');
 	if (!new_av)
-		exit(ft_printf("Error\n"));
+		exit(printf_error("Error"));
 	if (ft_strlen_mat(new_av) == 1)
 	{
 		free_av(new_av);
@@ -91,13 +79,13 @@ char	**check_av(char *av)
 			|| ft_atoi(new_av[i]) < INT_MIN)
 			{
 				free_av(new_av);
-				exit(ft_printf("Error\n"));
+				exit(printf_error("Error"));
 			}
 	}
 	return (new_av);
 }
 
-t_list	*check_error(int ac, char **av)
+t_list	*parsing(int ac, char **av)
 {
 	t_list	*pile;
 	int		check;
@@ -119,7 +107,7 @@ t_list	*check_error(int ac, char **av)
 	if (check_doublon(pile))
 	{
 		free_lst(pile);
-		exit (ft_printf("Error\n"));
+		exit (printf_error("Error"));
 	}
 	return (pile);
 }

@@ -1,28 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/24 09:51:12 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/06/07 15:37:50 by mhoyer           ###   ########.fr       */
+/*   Created: 2023/06/13 09:01:27 by mhoyer            #+#    #+#             */
+/*   Updated: 2023/06/13 09:45:21 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_list	*init(int ac, char **av, int end)
+int	printf_error(char *str)
 {
-	t_list	*lst;
-	int		i;
+	ft_putendl_fd(str, 2);
+	return (1);
+}
 
-	lst = NULL;
-	i = ac - 1;
-	while (i >= end)
+void	free_lst(t_list *lst)
+{
+	t_list	*tmp;
+	while (lst)
 	{
-		ft_lstadd_front(&lst, ft_lstnew((int)ft_atoi(av[i])));
-		i--;
+		tmp = lst->next;
+		free(lst);
+		lst = tmp;
 	}
-	return (lst);
+}
+
+void	free_av(char **av)
+{
+	int	i;
+
+	i = -1;
+	while (av[++i])
+	{
+		free(av[i]);
+	}
+	free(av);
 }

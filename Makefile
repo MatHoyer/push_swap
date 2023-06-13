@@ -1,49 +1,62 @@
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra -I. -MMD
+CFLAGS = -Wall -Wextra -Werror -I. -MMD -g3
 
-SRC = push_swap.c \
+SRC_PATH = sources/
+
+OBJS_PATH = obj/
+
+SRC = check_tri.c \
+	fonctions_sort.c \
+	ft_a.c \
+	ft_b.c \
+	ft_free.c \
 	init.c \
-	swaps.c \
+	main.c \
+	mini_sort_inv.c \
+	mini_sort.c \
+	parsing.c \
 	push.c \
-	rotates.c \
-	error.c \
-	fonctions.c
+	rotate.c \
+	sort.c \
+	swap.c \
 
 OBJS = $(SRC:.c=.o)
 
 DEP = $(SRC:.c=.d)
 
-LIB = libpush_swap.a
+PREFC = $(addprefix $(SRC_PATH),$(SRC))
+
+PREFO = $(addprefix $(OBJS_PATH),$(OBJS))
+
+PREFD = $(addprefix $(OBJS_PATH),$(DEP))
 
 NAME = push_swap
 
 all : $(NAME)
 
-$(NAME) : $(OBJS)
-	@make -s -C libft all 
-	@cp libft/libft.a .
-	@mv libft.a $(LIB)
-	@ar rcs $(LIB) $(OBJS)
-	@echo "creation de l'executable"
-	@$(CC) $(CFLAGS) -o $(NAME) main.c -L. -lpush_swap
+$(NAME) : $(PREFO)
+	@make -s -C libft all
+	@echo "Compilation de push_swap en cours..."
+	@$(CC) $(PREFO) ./libft/libft.a -o $(NAME)
 	@echo "Terminé!"
 
 bonus : all
 
-%.o: %.c
+$(OBJS_PATH)%.o: $(SRC_PATH)%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
-	@rm -f $(OBJS) $(DEP)
+	@rm -f $(PREFO) $(PREFD)
 	@make -s -C libft clean
 
-fclean : clean
-	@rm -f $(NAME) $(LIB)
+fclean :
+	@rm -f $(NAME)
+	@rm -f $(PREFO) $(PREFD)
 	@make -s -C libft fclean
 
 re : fclean all
 
--include $(DEP)
+-include $(PREFD)
 
 .PHONY : all clean fclean re

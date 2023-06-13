@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/24 09:18:15 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/06/12 13:44:03 by mhoyer           ###   ########.fr       */
+/*   Created: 2023/06/13 09:14:26 by mhoyer            #+#    #+#             */
+/*   Updated: 2023/06/13 11:08:06 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,13 @@ void	first_step(t_list **a, t_list **b, t_list *mediane, int val)
 	{
 		if ((*a)->content <= content)
 		{
-			ft_printf("pb\n");
-			push(a, b);
+			push_b(a, b);
 			below--;
 		}
 		else if (check_way(*a, find_next(*a, below)) && val)
-		{
-			ft_printf("rra\n");
-			reverse_rotate(a);
-		}
+			reverse_rotate_a(a);
 		else
-		{
-			ft_printf("ra\n");
-			rotate(a);
-		}
+			rotate_a(a);
 	}
 }
 
@@ -44,22 +37,14 @@ int	second_step_annexe(t_list **a, t_list **b, int value, t_list *mem)
 {
 	if ((*b)->next == mem)
 	{
-		swap(b);
-		push(b, a);
+		swap_b(b);
+		push_a(b, a);
 		value--;
-		ft_printf("sb\n");
-		ft_printf("pa\n");
 	}
 	else if (check_way(*b, find_next_last(*b, mem->below)))
-	{
-		ft_printf("rrb\n");
-		reverse_rotate(b);
-	}
+		reverse_rotate_b(b);
 	else
-	{
-		ft_printf("rb\n");
-		rotate(b);
-	}
+		rotate_b(b);
 	return (value);
 }
 
@@ -82,42 +67,21 @@ void	second_step(t_list **a, t_list **b)
 	{
 		if ((*b) == mem)
 		{
-			push(b, a);
+			push_a(b, a);
 			value--;
-			ft_printf("pa\n");
 		}
 		else
 			value = second_step_annexe(a, b, value, mem);
 	}
 }
 
-void	mini_tri(t_list **a)
-{
-	t_list	*first;
-
-	first = *a;
-	while (check_tri(*a))
-	{
-		if ((*a)->content > (*a)->next->content && (*a)->next != first)
-		{
-			swap(a);
-			ft_printf("sa\n");
-		}
-		else
-		{
-			rotate(a);
-			ft_printf("ra\n");
-		}
-	}
-}
-
-void	tri(t_list **a, t_list **b)
+void	sort(t_list **a, t_list **b)
 {
 	int taille_pack;
 
-	if (ft_lstsize(*a) < 10)
+	if (ft_lstsize(*a) <= 6)
 	{
-		mini_tri(a);
+		mini_sort(a, b, 'a');
 		return ;
 	}
 	taille_pack = ft_lstsize(*a) / 10;
@@ -132,4 +96,3 @@ void	tri(t_list **a, t_list **b)
 		second_step(a, b);
 	}
 }
-
