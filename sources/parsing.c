@@ -6,7 +6,7 @@
 /*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 09:05:52 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/06/13 09:46:48 by mhoyer           ###   ########.fr       */
+/*   Updated: 2023/06/13 12:05:18 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,12 @@ void	check_digit(int ac, char **av)
 	}
 }
 
+void	check_av_annexe(char **new_av)
+{
+	free_av(new_av);
+	exit (0);
+}
+
 char	**check_av(char *av)
 {
 	char	**new_av;
@@ -66,21 +72,20 @@ char	**check_av(char *av)
 	new_av = ft_split(av, ' ');
 	if (!new_av)
 		exit(printf_error("Error"));
-	if (ft_strlen_mat(new_av) == 1)
-	{
-		free_av(new_av);
-		exit (0);
-	}
+	if (ft_strlen_mat(new_av) == 1 && ft_str_isdigit(new_av[0]))
+		check_av_annexe(new_av);
 	while (new_av[++i])
 	{
 		j = -1;
 		while (new_av[i][++j])
+		{
 			if (!ft_isdigit(new_av[i][j]) || ft_atoi(new_av[i]) > INT_MAX
 			|| ft_atoi(new_av[i]) < INT_MIN)
 			{
 				free_av(new_av);
 				exit(printf_error("Error"));
 			}
+		}
 	}
 	return (new_av);
 }

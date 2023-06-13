@@ -6,7 +6,7 @@
 /*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 09:00:05 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/06/13 11:20:56 by mhoyer           ###   ########.fr       */
+/*   Updated: 2023/06/13 12:05:52 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,15 @@ int	main(int ac, char **av)
 	a = NULL;
 	b = NULL;
 	if (ac < 2)
-		return (1);
+		exit(printf_error("Error"));
+	if (ac == 2)
+		if (av[1][0] == '\0')
+			exit(printf_error("Error"));
 	a = parsing(ac, av);
 	if (!a)
 		return (0);
-	//affiche(a, b);
 	if (check_tri(a))
-	{
 		sort(&a, &b);
-		//affiche(a, b);
-	}
 	free_lst(a);
 	return (0);
 }

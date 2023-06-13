@@ -6,7 +6,7 @@
 /*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 09:14:26 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/06/13 11:08:06 by mhoyer           ###   ########.fr       */
+/*   Updated: 2023/06/13 12:00:45 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	second_step(t_list **a, t_list **b)
 
 void	sort(t_list **a, t_list **b)
 {
-	int taille_pack;
+	int	taille_pack;
 
 	if (ft_lstsize(*a) <= 6)
 	{

@@ -6,7 +6,7 @@
 /*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:35:56 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/06/13 11:39:58 by mhoyer           ###   ########.fr       */
+/*   Updated: 2023/06/13 12:01:10 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ void	mini_sort_inv(t_list **lst, char ft)
 	taille = ft_lstsize(*lst);
 	if (taille == 2)
 		mini_sort_2_inv(lst, ft);
-	else if (taille  == 3)
+	else if (taille == 3)
 		mini_sort_3_inv(lst, ft);
 }

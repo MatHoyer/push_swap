@@ -6,7 +6,7 @@
 /*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 09:13:46 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/06/13 09:21:48 by mhoyer           ###   ########.fr       */
+/*   Updated: 2023/06/13 12:01:43 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_list	*find_mediane(t_list *lst, int taille_pac)
 	t_list	*mem;
 	t_list	*start;
 	int		seektaille;
-	
+
 	start = lst;
 	while (start)
 	{
@@ -48,7 +48,7 @@ t_list	*find_mediane(t_list *lst, int taille_pac)
 			mem = start;
 		start = start->next;
 	}
-	seektaille = /*ft_lstsize(lst) /*/ taille_pac;
+	seektaille = taille_pac;
 	while (lst)
 	{
 		if (lst->below > mem->below && lst->below <= seektaille)
@@ -94,4 +94,3 @@ int	check_way(t_list *lst, t_list *elem)
 		return (1);
 	return (0);
 }
-

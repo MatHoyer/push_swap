@@ -6,7 +6,7 @@
 /*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 09:01:27 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/06/13 09:45:21 by mhoyer           ###   ########.fr       */
+/*   Updated: 2023/06/13 11:59:58 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	printf_error(char *str)
 void	free_lst(t_list *lst)
 {
 	t_list	*tmp;
+
 	while (lst)
 	{
 		tmp = lst->next;
