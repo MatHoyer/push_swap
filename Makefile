@@ -31,6 +31,8 @@ PREFO = $(addprefix $(OBJS_PATH),$(OBJS))
 
 PREFD = $(addprefix $(OBJS_PATH),$(DEP))
 
+OBJ_DIR = obj
+
 NAME = push_swap
 
 all : $(NAME)
@@ -43,11 +45,14 @@ $(NAME) : $(PREFO)
 
 bonus : all
 
-$(OBJS_PATH)%.o: $(SRC_PATH)%.c
+$(OBJ_DIR) :
+	@mkdir -p $(OBJ_DIR)
+
+$(OBJS_PATH)%.o: $(SRC_PATH)%.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
-	@rm -f $(PREFO) $(PREFD)
+	@rm -rf $(OBJ_DIR)
 	@make -s -C libft clean
 
 fclean :
