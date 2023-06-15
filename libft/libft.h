@@ -6,7 +6,7 @@
 /*   By: mhoyer <mhoyer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 11:45:35 by mhoyer            #+#    #+#             */
-/*   Updated: 2023/06/13 11:54:50 by mhoyer           ###   ########.fr       */
+/*   Updated: 2023/06/15 13:11:19 by mhoyer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int		ft_isalnum(int c);
 int		ft_isalpha(int c);
 int		ft_isascii(int c);
 int		ft_str_isdigit(char *str);
+int		ft_isdigit_sign(int sign, int c);
+int		ft_isdigit_sign_1(int space, int sign, int c);
 int		ft_isdigit(int c);
 int		ft_isprint(int c);
 int		ft_tolower(int c);
